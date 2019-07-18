@@ -1,0 +1,65 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: myfirstskillet
+# label used for menu selection
+label: My first skillet
+description: this is what my skillet does - stuff
+
+# type of device configuration
+# common types are panorama, panos, and template
+# https://github.com/PaloAltoNetworks/panhandler/blob/develop/docs/metadata_configuration.rst
+type: panos
+# preload static or default-based templates
+extends:
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - myfirst
+    - configure
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+# ---------------------------------------------------------------------
+# variables used in the configuration templates
+# type_hint defines the form field used by panhandler
+# type_hints can be text, ip_address, or dropdown
+variables:
+  - name: tag_name
+    description: tag name
+    default: my_tag
+    type_hint: text
+  - name: tag_desc
+    description: tag description
+    default: this is my tag description
+    type_hint: text
+  - name: tag_color
+    description: tag color
+    default: blue
+    type_hint: dropdown
+    dd_list:
+      - key: blue
+        value: color3
+      - key: orange
+        value: color6
+      - key: red
+        value: color1
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+# snippets used for api configuration including xpath and element as file name
+# files will load in the order listed
+snippets:
+  - name: tag
+    xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/tag
+    file: tag.xml
+#  - name: edl
+#    xpath: /config/devices/restofthe/xmltree
+#    file: edl.xml
+# ---------------------------------------------------------------------
+# end of snippets section
